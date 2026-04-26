@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Emely Rodríguez · Data Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Satoshi:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #F8F7F4;
+  --card: #FFFFFF;
+  --card2: #F2F0ED;
+  --border: rgba(20,18,15,0.08);
+  --border2: rgba(20,18,15,0.15);
+  --white: #17150F;
+  --muted: rgba(17,15,10,0.55);
+  --muted2: rgba(17,15,10,0.35);
+
+  --pink: #D63384;
+  --pink-glow: rgba(214,51,132,0.10);
+  --violet: #6D3FD4;
+  --violet-glow: rgba(109,63,212,0.10);
+  --cyan: #0E9E7E;
+  --cyan-glow: rgba(14,158,126,0.10);
+  --yellow: #B07D00;
+  --yellow-glow: rgba(176,125,0,0.10);
+
+  --font: 'Plus Jakarta Sans', sans-serif;
+  --mono: 'Fira Code', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--white);
+  width: 1000px;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+
+/* ── NOISE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(248,247,244,0.90);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 56px;
+}
+.nav-logo {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--pink);
+  letter-spacing: 0.5px;
+}
+.nav-logo span { color: var(--muted); }
+.nav-links { display: flex; gap: 32px; }
+.nav-links a {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--white); }
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  padding: 96px 48px 80px;
+  overflow: hidden;
+}
+.hero-glow-1 {
+  position: absolute;
+  top: -60px; left: -80px;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(109,63,212,0.08) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero-glow-2 {
+  position: absolute;
+  top: 40px; right: -100px;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(214,51,132,0.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(109,63,212,0.08);
+  border: 1px solid rgba(109,63,212,0.20);
+  border-radius: 100px;
+  padding: 5px 16px 5px 10px;
+  margin-bottom: 28px;
+}
+.hero-tag-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--violet);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+.hero-tag span {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--violet);
+  letter-spacing: 1px;
+}
+
+.hero h1 {
+  font-size: 68px;
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -2px;
+  margin-bottom: 24px;
+  max-width: 700px;
+}
+.hero h1 .name { color: var(--white); display: block; }
+.hero h1 .role {
+  display: block;
+  background: linear-gradient(135deg, var(--pink) 0%, var(--violet) 50%, var(--cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-desc {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.8;
+  max-width: 520px;
+  margin-bottom: 40px;
+  font-weight: 300;
+}
+.hero-desc strong { color: var(--white); font-weight: 500; }
+
+.hero-actions { display: flex; align-items: center; gap: 16px; }
+.btn-primary {
+  background: linear-gradient(135deg, var(--pink), var(--violet));
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: 8px;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border2);
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 12px 28px;
+  border-radius: 8px;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-ghost:hover { border-color: var(--white); color: var(--white); }
+
+.hero-loc {
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--muted2);
+  font-family: var(--mono);
+}
+.hero-loc::before {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+}
+
+/* ── STATS STRIP ── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin: 0 0 0 0;
+}
+.stat {
+  background: var(--card);
+  padding: 28px 32px;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-num.pink { color: var(--pink); }
+.stat-num.violet { color: var(--violet); }
+.stat-num.cyan { color: var(--cyan); }
+.stat-num.yellow { color: var(--yellow); }
+.stat-label { font-size: 11px; color: var(--muted2); letter-spacing: 0.8px; text-transform: uppercase; font-weight: 500; }
+
+/* ── SECTIONS ── */
+.section { padding: 72px 48px; }
+.section-alt { background: #EEECEA; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+.section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.eyebrow-line { width: 24px; height: 2px; border-radius: 2px; }
+.eyebrow-line.pink { background: var(--pink); }
+.eyebrow-line.violet { background: var(--violet); }
+.eyebrow-line.cyan { background: var(--cyan); }
+.eyebrow-line.yellow { background: var(--yellow); }
+.eyebrow-text {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+.eyebrow-text.pink { color: var(--pink); }
+.eyebrow-text.violet { color: var(--violet); }
+.eyebrow-text.cyan { color: var(--cyan); }
+.eyebrow-text.yellow { color: var(--yellow); }
+
+.section h2 {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 40px;
+  line-height: 1.15;
+}
+
+/* ── ABOUT ── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.about-text p {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.85;
+  margin-bottom: 16px;
+  font-weight: 300;
+}
+.about-text p strong { color: var(--white); font-weight: 500; }
+.about-text p:last-child { margin-bottom: 0; }
+
+.about-skills { display: flex; flex-direction: column; gap: 14px; }
+.skill-row { display: flex; flex-direction: column; gap: 7px; }
+.skill-top { display: flex; justify-content: space-between; align-items: center; }
+.skill-name { font-size: 12px; font-weight: 500; color: var(--white); letter-spacing: 0.3px; }
+.skill-pct { font-family: var(--mono); font-size: 11px; color: var(--muted2); }
+.skill-track {
+  height: 3px;
+  background: rgba(20,18,15,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.skill-fill {
+  height: 100%;
+  border-radius: 2px;
+  animation: fillbar 1.2s ease forwards;
+}
+@keyframes fillbar { from { width: 0 } }
+.skill-fill.pink { background: linear-gradient(90deg, var(--pink), var(--violet)); }
+.skill-fill.violet { background: linear-gradient(90deg, var(--violet), var(--cyan)); }
+.skill-fill.cyan { background: linear-gradient(90deg, var(--cyan), #2DDCB4cc); }
+.skill-fill.yellow { background: linear-gradient(90deg, var(--yellow), #F5C842cc); }
+
+/* ── STACK PILLS ── */
+.stack-wrap { margin-top: 32px; }
+.stack-label { font-family: var(--mono); font-size: 10px; color: var(--muted2); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 14px; }
+.stack-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 14px;
+  border-radius: 100px;
+  border: 1px solid;
+  letter-spacing: 0.3px;
+}
+.pill.pink { color: var(--pink); border-color: rgba(242,92,162,0.3); background: rgba(242,92,162,0.06); }
+.pill.violet { color: var(--violet); border-color: rgba(155,109,255,0.3); background: rgba(155,109,255,0.06); }
+.pill.cyan { color: var(--cyan); border-color: rgba(45,220,180,0.3); background: rgba(45,220,180,0.06); }
+.pill.yellow { color: var(--yellow); border-color: rgba(245,200,66,0.3); background: rgba(245,200,66,0.06); }
+.pill.white { color: var(--muted); border-color: var(--border2); background: rgba(20,18,15,0.04); }
+
+/* ── EXPERIENCE ── */
+.exp-list { display: flex; flex-direction: column; gap: 0; }
+.exp-item {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 32px;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.exp-item:first-child { border-top: 1px solid var(--border); }
+.exp-left { padding-top: 4px; }
+.exp-period { font-family: var(--mono); font-size: 11px; color: var(--muted2); line-height: 1.6; margin-bottom: 8px; }
+.exp-company { font-size: 12px; font-weight: 600; color: var(--muted); }
+.exp-right {}
+.exp-title { font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 8px; letter-spacing: -0.3px; }
+.exp-desc { font-size: 13px; color: var(--muted); line-height: 1.75; margin-bottom: 12px; font-weight: 300; }
+.exp-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.exp-tag {
+  font-size: 10px;
+  font-weight: 500;
+  font-family: var(--mono);
+  padding: 3px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  color: var(--muted2);
+  background: rgba(20,18,15,0.04);
+}
+
+/* ── PROJECTS ── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.project-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.25s, transform 0.25s;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+}
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  border-radius: 14px 14px 0 0;
+}
+.project-card.p-pink::before { background: linear-gradient(90deg, var(--pink), var(--violet)); }
+.project-card.p-violet::before { background: linear-gradient(90deg, var(--violet), var(--cyan)); }
+.project-card.p-cyan::before { background: linear-gradient(90deg, var(--cyan), var(--violet)); }
+.project-card.p-yellow::before { background: linear-gradient(90deg, var(--yellow), var(--pink)); }
+
+.project-card:hover { border-color: var(--border2); transform: translateY(-3px); }
+
+.pc-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+.pc-icon {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+.pc-icon.pink { background: var(--pink-glow); }
+.pc-icon.violet { background: var(--violet-glow); }
+.pc-icon.cyan { background: var(--cyan-glow); }
+.pc-icon.yellow { background: var(--yellow-glow); }
+
+.pc-arrow {
+  font-size: 18px;
+  color: var(--muted2);
+  transition: color 0.2s, transform 0.2s;
+}
+.project-card:hover .pc-arrow { color: var(--white); transform: translate(2px, -2px); }
+
+.pc-title { font-size: 17px; font-weight: 700; color: var(--white); margin-bottom: 8px; letter-spacing: -0.3px; }
+.pc-desc { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 18px; font-weight: 300; }
+.pc-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.pc-tag {
+  font-size: 10px;
+  font-family: var(--mono);
+  padding: 3px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  color: var(--muted2);
+}
+
+.coming-soon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted2);
+  margin-top: 8px;
+}
+.cs-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--yellow); }
+
+/* ── EDUCATION ── */
+.edu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.edu-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+}
+.edu-degree { font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 4px; letter-spacing: -0.3px; }
+.edu-school { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+.edu-period { font-family: var(--mono); font-size: 10px; color: var(--muted2); margin-bottom: 14px; letter-spacing: 1px; }
+.edu-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* ── CERT ── */
+.cert-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 40px;
+}
+.cert-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.cert-icon { font-size: 20px; flex-shrink: 0; }
+.cert-name { font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 3px; }
+.cert-issuer { font-size: 11px; color: var(--muted2); font-family: var(--mono); }
+
+/* ── CONTACT ── */
+.contact-wrap {
+  text-align: center;
+  padding: 80px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.contact-glow {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px; height: 300px;
+  background: radial-gradient(ellipse, rgba(109,63,212,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.contact-wrap h2 {
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -2px;
+  margin-bottom: 16px;
+}
+.contact-wrap h2 span {
+  background: linear-gradient(135deg, var(--pink), var(--violet));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.contact-sub { font-size: 15px; color: var(--muted); margin-bottom: 40px; font-weight: 300; }
+.contact-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 10px;
+  border: 1px solid var(--border2);
+  background: var(--card);
+  color: var(--muted);
+  transition: border-color 0.2s, color 0.2s, transform 0.2s;
+}
+.contact-link:hover { border-color: var(--pink); color: var(--white); transform: translateY(-2px); }
+.contact-link .cl-icon { font-size: 16px; }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-l { font-family: var(--mono); font-size: 11px; color: var(--muted2); }
+.footer-l span { color: var(--pink); }
+.footer-r { font-family: var(--mono); font-size: 10px; color: rgba(240,239,248,0.15); }
+
+/* ── ANIMATIONS ── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeup 0.6s ease forwards;
+}
+@keyframes fadeup {
+  to { opacity: 1; transform: translateY(0); }
+}
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span>~/</span>emely-rodriguez</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow-1"></div>
+  <div class="hero-glow-2"></div>
+
+  <div class="hero-tag fade-up">
+    <div class="hero-tag-dot"></div>
+    <span>Open to opportunities · Calgary, CA</span>
+  </div>
+
+  <h1 class="fade-up delay-1">
+    <span class="name">Emely Rodríguez</span>
+    <span class="role">Data Analyst</span>
+  </h1>
+
+  <p class="hero-desc fade-up delay-2">
+    Statistician & M.Sc. Data Science. I turn <strong>messy data into clear decisions</strong> — through dashboards, analysis, and models that actually get used. Currently expanding into <strong>project controls and construction analytics</strong>.
+  </p>
+
+  <div class="hero-actions fade-up delay-3">
+    <a href="#projects" class="btn-primary">View my work</a>
+    <a href="#contact" class="btn-ghost">Get in touch</a>
+  </div>
+
+  <div class="hero-loc fade-up delay-4">Calgary, Alberta, Canada</div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num pink">4+</div>
+    <div class="stat-label">Years experience</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num violet">3</div>
+    <div class="stat-label">Industries</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num cyan">M.Sc.</div>
+    <div class="stat-label">Data Science</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num yellow">42</div>
+    <div class="stat-label">Listed skills</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="section-eyebrow">
+    <div class="eyebrow-line violet"></div>
+    <div class="eyebrow-text violet">About</div>
+  </div>
+  <h2>Who I am</h2>
+
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I'm a <strong>Statistician and Data Scientist</strong> with a Master's in Data Science & Big Data, currently based in Calgary. My background spans health analytics, insurance, and automotive — which means I know how to adapt to any domain quickly.
+      </p>
+      <p>
+        I care about building things that are <strong>clean, reproducible, and easy to hand off</strong>. Whether it's a Power BI dashboard or a machine learning pipeline, I want the people who use it to actually understand it.
+      </p>
+      <p>
+        Right now I'm growing into <strong>project controls and construction analytics</strong> — applying data skills to scheduling, earned value, and progress tracking.
+      </p>
+      <div class="stack-wrap">
+        <div class="stack-label">Core stack</div>
+        <div class="stack-pills">
+          <span class="pill pink">Python</span>
+          <span class="pill violet">SQL</span>
+          <span class="pill cyan">Power BI</span>
+          <span class="pill yellow">Google BigQuery</span>
+          <span class="pill white">Google Cloud</span>
+          <span class="pill white">Excel</span>
+          <span class="pill white">Machine Learning</span>
+          <span class="pill white">NLP</span>
+          <span class="pill white">Statistics</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-skills">
+      <div class="skill-row">
+        <div class="skill-top">
+          <span class="skill-name">Python & Data Analysis</span>
+          <span class="skill-pct">90%</span>
+        </div>
+        <div class="skill-track"><div class="skill-fill pink" style="width:90%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-top">
+          <span class="skill-name">SQL & Database Querying</span>
+          <span class="skill-pct">88%</span>
+        </div>
+        <div class="skill-track"><div class="skill-fill violet" style="width:88%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-top">
+          <span class="skill-name">Power BI / Dashboards</span>
+          <span class="skill-pct">92%</span>
+        </div>
+        <div class="skill-track"><div class="skill-fill cyan" style="width:92%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-top">
+          <span class="skill-name">Machine Learning</span>
+          <span class="skill-pct">78%</span>
+        </div>
+        <div class="skill-track"><div class="skill-fill yellow" style="width:78%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-top">
+          <span class="skill-name">Statistical Analysis</span>
+          <span class="skill-pct">95%</span>
+        </div>
+        <div class="skill-track"><div class="skill-fill pink" style="width:95%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-top">
+          <span class="skill-name">Google Cloud / BigQuery</span>
+          <span class="skill-pct">75%</span>
+        </div>
+        <div class="skill-track"><div class="skill-fill violet" style="width:75%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="section section-alt" id="experience">
+  <div class="section-eyebrow">
+    <div class="eyebrow-line pink"></div>
+    <div class="eyebrow-text pink">Experience</div>
+  </div>
+  <h2>Where I've worked</h2>
+
+  <div class="exp-list">
+
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-period">Oct 2024 – Sep 2025</div>
+        <div class="exp-company">Equifax</div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-title">Data Scientist</div>
+        <div class="exp-desc">Worked on machine learning models and data pipelines in a cloud-native environment. Applied GCP tooling to process and analyze large-scale datasets for credit and financial risk insights.</div>
+        <div class="exp-tags">
+          <span class="exp-tag">Machine Learning</span>
+          <span class="exp-tag">Google Cloud</span>
+          <span class="exp-tag">BigQuery</span>
+          <span class="exp-tag">Python</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-period">Sep 2022 – Oct 2024<br>· 2 yrs 2 mos</div>
+        <div class="exp-company">Grupo Humano</div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-title">Data Analyst</div>
+        <div class="exp-desc">Led data analysis and reporting for one of the leading insurance groups in the Dominican Republic. Built dashboards and automated reporting workflows to support business decision-making.</div>
+        <div class="exp-tags">
+          <span class="exp-tag">Power BI</span>
+          <span class="exp-tag">SQL</span>
+          <span class="exp-tag">Python</span>
+          <span class="exp-tag">Insurance Analytics</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-period">Mar 2022 – Sep 2022<br>· 7 mos</div>
+        <div class="exp-company">The Dealer Support</div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-title">Data Analyst</div>
+        <div class="exp-desc">Delivered data visualization solutions and analytics for automotive dealership operations. Transformed raw sales and performance data into actionable reporting for the sales team.</div>
+        <div class="exp-tags">
+          <span class="exp-tag">Data Visualization</span>
+          <span class="exp-tag">Data Analytics</span>
+          <span class="exp-tag">Excel</span>
+          <span class="exp-tag">Reporting</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-period">Sep 2021 – Mar 2022<br>· 7 mos</div>
+        <div class="exp-company">Ministerio de Salud Pública · DR</div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-title">Statistical Data Analyst</div>
+        <div class="exp-desc">Processed and analyzed public health data, produced statistical reports and visualizations for epidemiological monitoring and health policy support.</div>
+        <div class="exp-tags">
+          <span class="exp-tag">Statistics</span>
+          <span class="exp-tag">Data Visualization</span>
+          <span class="exp-tag">Documentation</span>
+          <span class="exp-tag">Health Analytics</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section" id="projects">
+  <div class="section-eyebrow">
+    <div class="eyebrow-line cyan"></div>
+    <div class="eyebrow-text cyan">Projects</div>
+  </div>
+  <h2>Selected work</h2>
+
+  <div class="projects-grid">
+
+    <a href="https://github.com/emelyrodriguezs" target="_blank" class="project-card p-pink">
+      <div class="pc-top">
+        <div class="pc-icon pink">📊</div>
+        <div class="pc-arrow">↗</div>
+      </div>
+      <div class="pc-title">Construction Schedule Dashboard</div>
+      <div class="pc-desc">Interactive Power BI dashboard tracking Baseline vs. Current progress, S-Curves, and Earned Value metrics (SPI, CPI, EAC) from Excel data.</div>
+      <div class="pc-tags">
+        <span class="pc-tag">Power BI</span>
+        <span class="pc-tag">Excel</span>
+        <span class="pc-tag">EVM</span>
+        <span class="pc-tag">DAX</span>
+      </div>
+      <div class="coming-soon"><div class="cs-dot"></div>In progress</div>
+    </a>
+
+    <a href="https://github.com/emelyrodriguezs" target="_blank" class="project-card p-violet">
+      <div class="pc-top">
+        <div class="pc-icon violet">🔍</div>
+        <div class="pc-arrow">↗</div>
+      </div>
+      <div class="pc-title">Insurance Analytics Dashboard</div>
+      <div class="pc-desc">End-to-end analysis pipeline for insurance KPIs — claims ratio, loss trends, and portfolio performance visualized for executive reporting.</div>
+      <div class="pc-tags">
+        <span class="pc-tag">Power BI</span>
+        <span class="pc-tag">SQL</span>
+        <span class="pc-tag">Python</span>
+        <span class="pc-tag">DAX</span>
+      </div>
+      <div class="coming-soon"><div class="cs-dot"></div>Coming soon to GitHub</div>
+    </a>
+
+    <a href="https://github.com/emelyrodriguezs" target="_blank" class="project-card p-cyan">
+      <div class="pc-top">
+        <div class="pc-icon cyan">🧠</div>
+        <div class="pc-arrow">↗</div>
+      </div>
+      <div class="pc-title">NLP Text Classification</div>
+      <div class="pc-desc">Natural language processing model built during M.Sc. — classifying health-related text data using Python, scikit-learn and transformer-based approaches.</div>
+      <div class="pc-tags">
+        <span class="pc-tag">Python</span>
+        <span class="pc-tag">NLP</span>
+        <span class="pc-tag">scikit-learn</span>
+        <span class="pc-tag">ML</span>
+      </div>
+      <div class="coming-soon"><div class="cs-dot"></div>Coming soon to GitHub</div>
+    </a>
+
+    <a href="https://github.com/emelyrodriguezs" target="_blank" class="project-card p-yellow">
+      <div class="pc-top">
+        <div class="pc-icon yellow">🏥</div>
+        <div class="pc-arrow">↗</div>
+      </div>
+      <div class="pc-title">Public Health Data Analysis</div>
+      <div class="pc-desc">Statistical analysis and visualization of epidemiological data — mortality trends, disease prevalence, and population health indicators for the Dominican Republic.</div>
+      <div class="pc-tags">
+        <span class="pc-tag">Python</span>
+        <span class="pc-tag">Statistics</span>
+        <span class="pc-tag">Visualization</span>
+        <span class="pc-tag">R</span>
+      </div>
+      <div class="coming-soon"><div class="cs-dot"></div>Coming soon to GitHub</div>
+    </a>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="section section-alt" id="education">
+  <div class="section-eyebrow">
+    <div class="eyebrow-line yellow"></div>
+    <div class="eyebrow-text yellow">Education</div>
+  </div>
+  <h2>Academic background</h2>
+
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-degree">M.Sc. Data Science & Big Data</div>
+      <div class="edu-school">IEBS Business School</div>
+      <div class="edu-period">APR 2023 – JUN 2024</div>
+      <div class="edu-tags">
+        <span class="pill violet">Machine Learning</span>
+        <span class="pill cyan">NLP</span>
+        <span class="pill white">Big Data</span>
+        <span class="pill white">Deep Learning</span>
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-degree">B.Sc. Statistics</div>
+      <div class="edu-school">Universidad Autónoma de Santo Domingo</div>
+      <div class="edu-period">2016 – 2021 · Minor in Socioeconomics</div>
+      <div class="edu-tags">
+        <span class="pill pink">Statistics</span>
+        <span class="pill yellow">Probability</span>
+        <span class="pill white">Econometrics</span>
+        <span class="pill white">R</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cert-strip">
+    <div class="cert-item">
+      <div class="cert-icon">📋</div>
+      <div>
+        <div class="cert-name">Data Analyst in Power BI</div>
+        <div class="cert-issuer">DataCamp · Aug 2022</div>
+      </div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-icon">🌐</div>
+      <div>
+        <div class="cert-name">EF SET English C1 Proficient</div>
+        <div class="cert-issuer">EF Standard English Test · Jul 2022</div>
+      </div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-icon">☁️</div>
+      <div>
+        <div class="cert-name">Google Cloud · BigQuery</div>
+        <div class="cert-issuer">Applied · Equifax 2024–2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div class="contact-glow"></div>
+    <h2>Let's <span>work together</span></h2>
+    <p class="contact-sub">Open to data analyst roles, freelance projects, and project controls opportunities.</p>
+    <div class="contact-links">
+      <a href="https://www.linkedin.com/in/emelyrodriguezs" target="_blank" class="contact-link">
+        <span class="cl-icon">💼</span> LinkedIn
+      </a>
+      <a href="https://github.com/emelyrodriguezs" target="_blank" class="contact-link">
+        <span class="cl-icon">🐙</span> GitHub
+      </a>
+      <a href="mailto:emely@email.com" class="contact-link">
+        <span class="cl-icon">✉️</span> Email me
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-l">Emely Rodríguez <span>·</span> Data Analyst & Statistician</div>
+  <div class="footer-r">Built with HTML · Calgary 2026</div>
+</footer>
+
+</body>
+</html>
