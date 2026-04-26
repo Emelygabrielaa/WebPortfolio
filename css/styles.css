@@ -560,3 +560,35 @@ footer {
 .pc-btn.secondary:hover {
   background: #f5f5f5;
 }
+
+.pc-tags-links {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* clickable glass tags */
+.pc-tag-link {
+  font-size: 11px;
+  font-family: var(--mono);
+  padding: 6px 12px;
+  border-radius: 999px;
+
+  color: var(--white);
+  text-decoration: none;
+
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  transition: all 0.2s ease;
+}
+
+.pc-tag-link:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.55);
+  border-color: rgba(255, 255, 255, 0.7);
+}
